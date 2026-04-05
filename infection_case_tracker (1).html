@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>感染科照會追蹤系統</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --color-background-primary:#ffffff;
+  --color-background-secondary:#f5f5f4;
+  --color-background-tertiary:#eeece8;
+  --color-background-info:#e6f1fb;
+  --color-background-success:#eaf3de;
+  --color-background-warning:#faeeda;
+  --color-background-danger:#fcebeb;
+  --color-text-primary:#1a1a18;
+  --color-text-secondary:#5f5e5a;
+  --color-text-tertiary:#888780;
+  --color-text-info:#185fa5;
+  --color-text-success:#3b6d11;
+  --color-text-warning:#854f0b;
+  --color-text-danger:#a32d2d;
+  --color-border-tertiary:rgba(0,0,0,0.12);
+  --color-border-secondary:rgba(0,0,0,0.25);
+  --color-border-primary:rgba(0,0,0,0.38);
+  --color-border-info:#b5d4f4;
+  --border-radius-md:8px;
+  --border-radius-lg:12px;
+  --font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --color-background-primary:#1c1c1a;
+    --color-background-secondary:#262624;
+    --color-background-tertiary:#2e2e2b;
+    --color-background-info:#042c53;
+    --color-background-success:#173404;
+    --color-background-warning:#412402;
+    --color-background-danger:#501313;
+    --color-text-primary:#e8e6e0;
+    --color-text-secondary:#b4b2a9;
+    --color-text-tertiary:#888780;
+    --color-text-info:#85b7eb;
+    --color-text-success:#97c459;
+    --color-text-warning:#ef9f27;
+    --color-text-danger:#f09595;
+    --color-border-tertiary:rgba(255,255,255,0.12);
+    --color-border-secondary:rgba(255,255,255,0.22);
+    --color-border-primary:rgba(255,255,255,0.35);
+    --color-border-info:#0c447c;
+  }
+}
+body{font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-tertiary);font-size:14px;min-height:100vh}
+.app{max-width:700px;margin:0 auto;padding:20px 16px}
+.header{margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.header-left h1{font-size:18px;font-weight:500;margin-bottom:2px}
+.header-left p{font-size:13px;color:var(--color-text-secondary)}
+.sync-status{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary);flex-shrink:0;margin-top:2px;cursor:pointer;padding:4px 10px;border:0.5px solid var(--color-border-tertiary);border-radius:20px;background:var(--color-background-primary);transition:border-color .15s}
+.sync-status:hover{border-color:var(--color-border-secondary)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#888;flex-shrink:0;transition:background .3s}
+.sync-dot.ok{background:#639922}
+.sync-dot.syncing{background:#EF9F27;animation:pulse .8s infinite}
+.sync-dot.error{background:#E24B4A}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:0.5px solid var(--color-border-tertiary)}
+.tab{padding:8px 16px;cursor:pointer;border:none;background:none;font-size:13px;color:var(--color-text-secondary);border-bottom:2px solid transparent;transition:all .2s;font-family:var(--font-sans)}
+.tab.active{color:var(--color-text-primary);border-bottom:2px solid var(--color-text-primary);font-weight:500}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:16px;margin-bottom:12px}
+.case-card{cursor:pointer;transition:border-color .15s}.case-card:hover{border-color:var(--color-border-secondary)}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:var(--border-radius-md);font-weight:500}
+.badge-active{background:var(--color-background-info);color:var(--color-text-info)}
+.badge-resolved{background:var(--color-background-success);color:var(--color-text-success)}
+.badge-pending{background:var(--color-background-warning);color:var(--color-text-warning)}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px;flex-shrink:0}
+.dot-high{background:#E24B4A}.dot-mid{background:#EF9F27}.dot-low{background:#639922}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.stat-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
+.stat-num{font-size:24px;font-weight:500;margin-top:4px}
+.stat-label{font-size:12px;color:var(--color-text-secondary)}
+.form-group{margin-bottom:12px}
+.form-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;display:block}
+input,select,textarea{width:100%;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:13px;font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--color-border-primary)}
+textarea{resize:vertical;min-height:70px}
+.btn{padding:7px 14px;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-primary);font-family:var(--font-sans);transition:background .15s}
+.btn:hover{background:var(--color-background-secondary)}
+.btn-primary{background:var(--color-text-primary);color:var(--color-background-primary);border-color:transparent}
+.btn-primary:hover{opacity:.85}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn-danger{color:var(--color-text-danger);border-color:var(--color-border-tertiary)}
+.detail-section{margin-top:14px;padding-top:14px;border-top:0.5px solid var(--color-border-tertiary)}
+.detail-section h4{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.progress-bar-bg{background:var(--color-background-secondary);border-radius:4px;height:6px;margin-top:6px}
+.progress-bar{height:6px;border-radius:4px;background:var(--color-text-info);transition:width .3s}
+.log-item{font-size:12px;color:var(--color-text-secondary);padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary);display:flex;gap:8px}
+.log-date{flex-shrink:0;color:var(--color-text-tertiary)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--color-text-secondary);font-size:13px}
+.top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.search-bar{display:flex;gap:8px;margin-bottom:14px}
+.search-bar input{flex:1}
+.filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.filter-chip{padding:4px 10px;border-radius:12px;font-size:12px;cursor:pointer;border:0.5px solid var(--color-border-tertiary);background:transparent;color:var(--color-text-secondary);transition:all .15s;font-family:var(--font-sans)}
+.filter-chip.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:100}
+.modal{background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:20px;width:min(520px,92vw);max-height:88vh;overflow-y:auto}
+.modal-title{font-size:16px;font-weight:500;margin-bottom:16px}
+.back-btn{cursor:pointer;font-size:13px;color:var(--color-text-secondary);margin-bottom:12px;display:inline-flex;align-items:center;gap:4px;background:none;border:none;font-family:var(--font-sans)}
+.back-btn:hover{color:var(--color-text-primary)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--color-text-primary);color:var(--color-background-primary);padding:8px 18px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:200;white-space:nowrap}
+.toast.show{opacity:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <div class="header-left">
+      <h1>感染科照會追蹤系統</h1>
+      <p>Case 累積 · 進度追蹤 · 學習日誌</p>
+    </div>
+    <div class="sync-status" onclick="manualSync()" title="點擊手動同步">
+      <span class="sync-dot" id="sync-dot"></span>
+      <span id="sync-label">連線中...</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('dashboard')">總覽</button>
+    <button class="tab" onclick="showTab('cases')">照會追蹤</button>
+    <button class="tab" onclick="showTab('knowledge')">學習日誌</button>
+  </div>
+
+  <div id="tab-dashboard" class="panel active">
+    <div class="grid3" style="margin-bottom:16px" id="stats-grid"></div>
+    <div class="card">
+      <div style="font-size:13px;font-weight:500;margin-bottom:12px">近期照會</div>
+      <div id="recent-cases"></div>
+    </div>
+    <div class="card">
+      <div style="font-size:13px;font-weight:500;margin-bottom:12px">常見菌種分佈</div>
+      <div id="bug-stats"></div>
+    </div>
+  </div>
+
+  <div id="tab-cases" class="panel">
+    <div id="case-list-view">
+      <div class="top-bar">
+        <span style="font-size:15px;font-weight:500">照會清單</span>
+        <button class="btn btn-primary" onclick="openAddCase()">+ 新增照會</button>
+      </div>
+      <div class="search-bar">
+        <input type="text" placeholder="搜尋病歷號、診斷..." id="search-input" oninput="renderCaseList()">
+        <select id="filter-ward" onchange="renderCaseList()" style="width:auto"><option value="">全部病房</option></select>
+      </div>
+      <div class="filter-row">
+        <button class="filter-chip active" onclick="setFilter(this,'')">全部</button>
+        <button class="filter-chip" onclick="setFilter(this,'active')">進行中</button>
+        <button class="filter-chip" onclick="setFilter(this,'pending')">待回覆</button>
+        <button class="filter-chip" onclick="setFilter(this,'resolved')">已結案</button>
+      </div>
+      <div id="case-list"></div>
+    </div>
+    <div id="case-detail-view" style="display:none"></div>
+  </div>
+
+  <div id="tab-knowledge" class="panel">
+    <div class="top-bar">
+      <span style="font-size:15px;font-weight:500">學習日誌</span>
+      <button class="btn btn-primary" onclick="openAddNote()">+ 新增筆記</button>
+    </div>
+    <div class="filter-row" id="note-tags"></div>
+    <div id="note-list"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Modals -->
+<div id="modal-case" style="display:none"><div class="modal-bg" onclick="if(event.target===this)closeModal('modal-case')"><div class="modal">
+  <div class="modal-title">新增照會</div>
+  <div class="grid2">
+    <div class="form-group"><label class="form-label">病歷號</label><input id="c-mrn" placeholder="MR12345"></div>
+    <div class="form-group"><label class="form-label">病房/科別</label><input id="c-ward" placeholder="8A 外科"></div>
+  </div>
+  <div class="form-group"><label class="form-label">主要診斷 / 問題</label><input id="c-dx" placeholder="e.g. 術後發燒 r/o BSI"></div>
+  <div class="grid2">
+    <div class="form-group"><label class="form-label">優先程度</label><select id="c-priority"><option value="high">高 — 緊急</option><option value="mid" selected>中 — 一般</option><option value="low">低 — 例行</option></select></div>
+    <div class="form-group"><label class="form-label">狀態</label><select id="c-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select></div>
+  </div>
+  <div class="form-group"><label class="form-label">初步評估</label><textarea id="c-assessment" placeholder="病人基本資料、感染部位、疑似病原..."></textarea></div>
+  <div class="form-group"><label class="form-label">建議處置</label><textarea id="c-plan" placeholder="抗生素選擇、追蹤項目、回診時間..."></textarea></div>
+  <div class="form-group"><label class="form-label">培養/送檢結果</label><input id="c-culture" placeholder="e.g. Blood Cx x2 送出, 待報告"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+    <button class="btn" onclick="closeModal('modal-case')">取消</button>
+    <button class="btn btn-primary" onclick="saveCase()">儲存</button>
+  </div>
+</div></div></div>
+
+<div id="modal-note" style="display:none"><div class="modal-bg" onclick="if(event.target===this)closeModal('modal-note')"><div class="modal">
+  <div class="modal-title">新增學習筆記</div>
+  <div class="form-group"><label class="form-label">標題</label><input id="n-title" placeholder="e.g. MRSA菌血症治療原則"></div>
+  <div class="form-group"><label class="form-label">分類標籤</label><select id="n-tag"><option value="bacteria">菌種特性</option><option value="antibiotic">抗生素</option><option value="syndrome">感染症候群</option><option value="guideline">指引摘要</option><option value="pearls">Clinical Pearls</option><option value="case">Case 反思</option></select></div>
+  <div class="form-group"><label class="form-label">內容</label><textarea id="n-body" style="min-height:120px" placeholder="關鍵知識點、記憶訣竅、臨床應用..."></textarea></div>
+  <div class="form-group"><label class="form-label">連結病歷號（選填）</label><input id="n-case" placeholder="MR12345"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+    <button class="btn" onclick="closeModal('modal-note')">取消</button>
+    <button class="btn btn-primary" onclick="saveNote()">儲存</button>
+  </div>
+</div></div></div>
+
+<div id="modal-update" style="display:none"><div class="modal-bg" onclick="if(event.target===this)closeModal('modal-update')"><div class="modal">
+  <div class="modal-title">更新進度</div>
+  <div class="form-group"><label class="form-label">狀態</label><select id="u-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select></div>
+  <div class="form-group"><label class="form-label">培養結果</label><input id="u-culture" placeholder="e.g. MRSA, ESBL Klebsiella..."></div>
+  <div class="form-group"><label class="form-label">更新紀錄</label><textarea id="u-note" placeholder="今日評估、調整用藥、新發現..."></textarea></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+    <button class="btn" onclick="closeModal('modal-update')">取消</button>
+    <button class="btn btn-primary" onclick="saveUpdate()">儲存更新</button>
+  </div>
+</div></div></div>
+
+<script>
+const API='https://script.google.com/macros/s/AKfycbxMiISFLb-tDdXpMDICyh4lSAT6LxVav1oePnXcYkYkQIXPbE7PJvYRlJZ_udJ-UuOmdw/exec';
+let cases=[],notes=[],activeFilter='',currentCaseId=null,noteTagFilter='';
+const tagLabels={bacteria:'菌種特性',antibiotic:'抗生素',syndrome:'感染症候群',guideline:'指引摘要',pearls:'Clinical Pearls',case:'Case 反思'};
+const statusLabel={active:'進行中',pending:'待回覆',resolved:'已結案'};
+const priorityLabel={high:'高',mid:'中',low:'低'};
+
+function uid(){return Date.now()+Math.random().toString(36).slice(2)}
+function fmt(ts){const d=new Date(+ts);return(d.getMonth()+1)+'/'+(d.getDate())+' '+(d.getHours()+'').padStart(2,'0')+':'+(d.getMinutes()+'').padStart(2,'0')}
+function fmtDate(ts){const d=new Date(+ts);return(d.getMonth()+1)+'/'+d.getDate()}
+function tryParse(s){try{return JSON.parse(s)}catch(e){return null}}
+
+function setSyncStatus(state,label){
+  document.getElementById('sync-dot').className='sync-dot'+(state?' '+state:'');
+  document.getElementById('sync-label').textContent=label;
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2400);
+}
+
+// Sheets serialization
+function casesToRows(arr){return arr.map(c=>[c.id,c.mrn,c.ward||'',c.dx,c.priority,c.status,c.assessment||'',c.plan||'',c.culture||'',c.created,JSON.stringify(c.updates||[])])}
+function rowsToCases(rows){if(!rows||!rows.length)return[];return rows.filter(r=>r[0]&&r[0]!=='id').map(r=>({id:String(r[0]),mrn:String(r[1]),ward:String(r[2]),dx:String(r[3]),priority:String(r[4]),status:String(r[5]),assessment:String(r[6]),plan:String(r[7]),culture:String(r[8]),created:+r[9],updates:tryParse(r[10])||[]}))}
+function notesToRows(arr){return arr.map(n=>[n.id,n.title,n.tag,n.body,n.caseRef||'',n.created])}
+function rowsToNotes(rows){if(!rows||!rows.length)return[];return rows.filter(r=>r[0]&&r[0]!=='id').map(r=>({id:String(r[0]),title:String(r[1]),tag:String(r[2]),body:String(r[3]),caseRef:String(r[4]),created:+r[5]}))}
+
+async function fetchFromSheets(){
+  setSyncStatus('syncing','同步中...');
+  try{
+    const [cr,nr]=await Promise.all([
+      fetch(API+'?action=getCases').then(r=>r.json()),
+      fetch(API+'?action=getNotes').then(r=>r.json())
+    ]);
+    cases=rowsToCases(cr);
+    notes=rowsToNotes(nr);
+    saveLocal();
+    setSyncStatus('ok','已同步');
+    return true;
+  }catch(e){
+    setSyncStatus('error','離線模式');
+    loadLocal();
+    return false;
+  }
+}
+
+async function pushToSheets(){
+  setSyncStatus('syncing','儲存中...');
+  saveLocal();
+  try{
+    await Promise.all([
+      fetch(API,{method:'POST',body:JSON.stringify({action:'saveCases',rows:casesToRows(cases)})}),
+      fetch(API,{method:'POST',body:JSON.stringify({action:'saveNotes',rows:notesToRows(notes)})})
+    ]);
+    setSyncStatus('ok','已同步');
+    showToast('✓ 已同步至 Google Sheets');
+  }catch(e){
+    setSyncStatus('error','同步失敗');
+    showToast('⚠️ 同步失敗，資料已存本機');
+  }
+}
+
+async function manualSync(){
+  await fetchFromSheets();
+  renderAll();
+  showToast('✓ 已從雲端重新載入');
+}
+
+function saveLocal(){try{localStorage.setItem('id_cases_v2',JSON.stringify(cases));localStorage.setItem('id_notes_v2',JSON.stringify(notes))}catch(e){}}
+function loadLocal(){try{cases=JSON.parse(localStorage.getItem('id_cases_v2')||'[]');notes=JSON.parse(localStorage.getItem('id_notes_v2')||'[]')}catch(e){cases=[];notes=[]}}
+
+function showTab(t){
+  document.querySelectorAll('.tab').forEach((b,i)=>b.classList.toggle('active',['dashboard','cases','knowledge'][i]===t));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  renderAll();
+}
+function renderAll(){renderDash();renderCaseList();renderWardFilter();renderNotes();}
+
+function openAddCase(){document.getElementById('modal-case').style.display='block';['c-mrn','c-ward','c-dx','c-assessment','c-plan','c-culture'].forEach(id=>document.getElementById(id).value='');document.getElementById('c-priority').value='mid';document.getElementById('c-status').value='active'}
+function openAddNote(){document.getElementById('modal-note').style.display='block';['n-title','n-body','n-case'].forEach(id=>document.getElementById(id).value='');document.getElementById('n-tag').value='bacteria'}
+function closeModal(id){document.getElementById(id).style.display='none'}
+
+async function saveCase(){
+  const mrn=document.getElementById('c-mrn').value.trim(),dx=document.getElementById('c-dx').value.trim();
+  if(!mrn||!dx)return alert('請填寫病歷號與診斷');
+  cases.unshift({id:uid(),mrn,ward:document.getElementById('c-ward').value.trim(),dx,priority:document.getElementById('c-priority').value,status:document.getElementById('c-status').value,assessment:document.getElementById('c-assessment').value.trim(),plan:document.getElementById('c-plan').value.trim(),culture:document.getElementById('c-culture').value.trim(),created:Date.now(),updates:[]});
+  closeModal('modal-case');renderAll();await pushToSheets();
+}
+
+async function saveNote(){
+  const title=document.getElementById('n-title').value.trim(),body=document.getElementById('n-body').value.trim();
+  if(!title||!body)return alert('請填寫標題與內容');
+  notes.unshift({id:uid(),title,tag:document.getElementById('n-tag').value,body,caseRef:document.getElementById('n-case').value.trim(),created:Date.now()});
+  closeModal('modal-note');renderNotes();await pushToSheets();
+}
+
+function renderDash(){
+  const active=cases.filter(c=>c.status==='active').length,pending=cases.filter(c=>c.status==='pending').length,resolved=cases.filter(c=>c.status==='resolved').length;
+  document.getElementById('stats-grid').innerHTML=`<div class="stat-card"><div class="stat-label">進行中</div><div class="stat-num" style="color:var(--color-text-info)">${active}</div></div><div class="stat-card"><div class="stat-label">待回覆</div><div class="stat-num" style="color:var(--color-text-warning)">${pending}</div></div><div class="stat-card"><div class="stat-label">已結案</div><div class="stat-num" style="color:var(--color-text-success)">${resolved}</div></div>`;
+  document.getElementById('recent-cases').innerHTML=cases.slice(0,3).map(c=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)"><span class="dot dot-${c.priority}"></span><span style="flex:1;font-size:13px">${c.mrn} — ${c.dx}</span><span class="badge badge-${c.status}">${statusLabel[c.status]}</span></div>`).join('')||'<div style="font-size:13px;color:var(--color-text-secondary)">尚無照會</div>';
+  const counts={};cases.forEach(c=>{(c.culture||'').split(/[,，\s]+/).forEach(w=>{if(w.length>2)counts[w]=(counts[w]||0)+1})});
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  document.getElementById('bug-stats').innerHTML=sorted.length?sorted.map(([k,v])=>`<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span>${k}</span><span>${v}</span></div><div class="progress-bar-bg"><div class="progress-bar" style="width:${Math.round(v/Math.max(cases.length,1)*100)}%"></div></div></div>`).join(''):'<div style="font-size:13px;color:var(--color-text-secondary)">尚無培養資料</div>';
+}
+
+function setFilter(el,s){activeFilter=s;document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));el.classList.add('active');renderCaseList()}
+function renderWardFilter(){
+  const wards=[...new Set(cases.map(c=>c.ward).filter(Boolean))],sel=document.getElementById('filter-ward'),cur=sel.value;
+  sel.innerHTML='<option value="">全部病房</option>'+wards.map(w=>`<option value="${w}"${cur===w?' selected':''}>${w}</option>`).join('');
+}
+function renderCaseList(){
+  const q=(document.getElementById('search-input')||{value:''}).value.toLowerCase(),ward=(document.getElementById('filter-ward')||{value:''}).value;
+  const filtered=cases.filter(c=>(!activeFilter||c.status===activeFilter)&&(!ward||c.ward===ward)&&(!q||c.mrn.toLowerCase().includes(q)||c.dx.toLowerCase().includes(q)||(c.ward||'').toLowerCase().includes(q)));
+  document.getElementById('case-list').innerHTML=filtered.length?filtered.map(c=>`<div class="card case-card" onclick="showCaseDetail('${c.id}')"><div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="dot dot-${c.priority}"></span><span style="font-weight:500;font-size:14px">${c.mrn}</span>${c.ward?`<span style="font-size:12px;color:var(--color-text-secondary)">${c.ward}</span>`:''}<span class="badge badge-${c.status}" style="margin-left:auto">${statusLabel[c.status]}</span></div><div style="font-size:13px;margin-bottom:4px">${c.dx}</div>${c.culture?`<div style="font-size:12px;color:var(--color-text-secondary)">培養：${c.culture}</div>`:''}<div style="font-size:11px;color:var(--color-text-tertiary);margin-top:6px">${fmt(c.created)}　${c.updates.length?c.updates.length+'次更新':''}</div></div>`).join(''):'<div class="empty-state">尚無照會<br>點右上角「+ 新增照會」開始記錄</div>';
+}
+
+function showCaseDetail(id){
+  const c=cases.find(x=>x.id===id);if(!c)return;
+  currentCaseId=id;
+  document.getElementById('case-list-view').style.display='none';
+  const v=document.getElementById('case-detail-view');v.style.display='block';
+  v.innerHTML=`<button class="back-btn" onclick="backToList()">← 返回清單</button><div class="card"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="dot dot-${c.priority}"></span><span style="font-size:16px;font-weight:500">${c.mrn}</span>${c.ward?`<span style="font-size:13px;color:var(--color-text-secondary)">${c.ward}</span>`:''}<span class="badge badge-${c.status}" style="margin-left:auto">${statusLabel[c.status]}</span></div><div style="font-size:14px;margin-top:8px">${c.dx}</div><div style="font-size:12px;color:var(--color-text-tertiary);margin-top:4px">建立：${fmt(c.created)}　優先度：${priorityLabel[c.priority]}</div>${c.assessment?`<div class="detail-section"><h4>初步評估</h4><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${c.assessment}</div></div>`:''}${c.plan?`<div class="detail-section"><h4>建議處置</h4><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${c.plan}</div></div>`:''}${c.culture?`<div class="detail-section"><h4>培養/送檢</h4><div style="font-size:13px">${c.culture}</div></div>`:''}<div class="detail-section"><h4>更新紀錄 (${c.updates.length})</h4>${c.updates.length?c.updates.map(u=>`<div class="log-item"><span class="log-date">${fmtDate(u.ts)}</span><span style="flex:1">${u.note}${u.culture?' — 培養：'+u.culture:''}${u.status?' ['+statusLabel[u.status]+']':''}</span></div>`).join(''):'<div style="font-size:12px;color:var(--color-text-secondary)">尚無更新</div>'}</div><div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn btn-primary btn-sm" onclick="openUpdate()">更新進度</button><button class="btn btn-sm" onclick="addNoteFromCase('${c.mrn}')">加入學習筆記</button><button class="btn btn-sm btn-danger" onclick="deleteCase('${c.id}')">刪除</button></div></div>`;
+}
+
+function backToList(){document.getElementById('case-list-view').style.display='block';document.getElementById('case-detail-view').style.display='none';currentCaseId=null}
+
+function openUpdate(){
+  document.getElementById('modal-update').style.display='block';
+  const c=cases.find(x=>x.id===currentCaseId);
+  if(c)document.getElementById('u-status').value=c.status;
+  ['u-culture','u-note'].forEach(id=>document.getElementById(id).value='');
+}
+
+async function saveUpdate(){
+  const c=cases.find(x=>x.id===currentCaseId);if(!c)return;
+  const note=document.getElementById('u-note').value.trim();if(!note)return alert('請填寫更新內容');
+  c.updates.push({ts:Date.now(),note,culture:document.getElementById('u-culture').value.trim(),status:document.getElementById('u-status').value});
+  c.status=document.getElementById('u-status').value;
+  if(document.getElementById('u-culture').value.trim())c.culture=document.getElementById('u-culture').value.trim();
+  closeModal('modal-update');showCaseDetail(currentCaseId);renderDash();await pushToSheets();
+}
+
+async function deleteCase(id){
+  if(!confirm('確定刪除此照會？'))return;
+  cases=cases.filter(c=>c.id!==id);backToList();renderAll();await pushToSheets();
+}
+
+function renderNotes(){
+  const tags=[...new Set(notes.map(n=>n.tag))];
+  document.getElementById('note-tags').innerHTML=`<button class="filter-chip ${!noteTagFilter?'active':''}" onclick="setNoteTag('')">全部</button>`+tags.map(t=>`<button class="filter-chip ${noteTagFilter===t?'active':''}" onclick="setNoteTag('${t}')">${tagLabels[t]||t}</button>`).join('');
+  const filtered=noteTagFilter?notes.filter(n=>n.tag===noteTagFilter):notes;
+  document.getElementById('note-list').innerHTML=filtered.length?filtered.map(n=>`<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><span style="font-weight:500;font-size:14px;flex:1">${n.title}</span><span class="badge" style="background:var(--color-background-secondary);color:var(--color-text-secondary)">${tagLabels[n.tag]||n.tag}</span></div><div style="font-size:13px;line-height:1.7;color:var(--color-text-secondary);white-space:pre-wrap">${n.body}</div>${n.caseRef?`<div style="font-size:12px;color:var(--color-text-tertiary);margin-top:6px">病歷：${n.caseRef}</div>`:''}<div style="display:flex;gap:8px;margin-top:10px;justify-content:flex-end"><button class="btn btn-sm btn-danger" onclick="deleteNote('${n.id}')">刪除</button></div></div>`).join(''):'<div class="empty-state">尚無筆記<br>點右上角「+ 新增筆記」建立知識庫</div>';
+}
+function setNoteTag(t){noteTagFilter=t;renderNotes()}
+async function deleteNote(id){if(!confirm('確定刪除？'))return;notes=notes.filter(n=>n.id!==id);renderNotes();await pushToSheets()}
+function addNoteFromCase(mrn){document.getElementById('n-case').value=mrn;document.getElementById('n-tag').value='case';document.getElementById('n-title').value='';document.getElementById('n-body').value='';document.getElementById('modal-note').style.display='block'}
+
+// Init
+(async()=>{
+  loadLocal();renderAll();
+  await fetchFromSheets();
+  renderAll();
+})();
+</script>
+</body>
+</html>
