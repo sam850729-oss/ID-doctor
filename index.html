@@ -7,48 +7,21 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --color-background-primary:#ffffff;
-  --color-background-secondary:#f5f5f4;
-  --color-background-tertiary:#eeece8;
-  --color-background-info:#e6f1fb;
-  --color-background-success:#eaf3de;
-  --color-background-warning:#faeeda;
-  --color-background-danger:#fcebeb;
-  --color-text-primary:#1a1a18;
-  --color-text-secondary:#5f5e5a;
-  --color-text-tertiary:#888780;
-  --color-text-info:#185fa5;
-  --color-text-success:#3b6d11;
-  --color-text-warning:#854f0b;
-  --color-text-danger:#a32d2d;
-  --color-border-tertiary:rgba(0,0,0,0.12);
-  --color-border-secondary:rgba(0,0,0,0.25);
-  --color-border-primary:rgba(0,0,0,0.38);
-  --color-border-info:#b5d4f4;
-  --border-radius-md:8px;
-  --border-radius-lg:12px;
-  --font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --color-background-primary:#ffffff;--color-background-secondary:#f5f5f4;--color-background-tertiary:#eeece8;
+  --color-background-info:#e6f1fb;--color-background-success:#eaf3de;--color-background-warning:#faeeda;--color-background-danger:#fcebeb;
+  --color-text-primary:#1a1a18;--color-text-secondary:#5f5e5a;--color-text-tertiary:#888780;
+  --color-text-info:#185fa5;--color-text-success:#3b6d11;--color-text-warning:#854f0b;--color-text-danger:#a32d2d;
+  --color-border-tertiary:rgba(0,0,0,0.12);--color-border-secondary:rgba(0,0,0,0.25);--color-border-primary:rgba(0,0,0,0.38);--color-border-info:#b5d4f4;
+  --border-radius-md:8px;--border-radius-lg:12px;
+  --font-sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--font-mono:'Courier New',monospace;
 }
 @media(prefers-color-scheme:dark){
   :root{
-    --color-background-primary:#1c1c1a;
-    --color-background-secondary:#262624;
-    --color-background-tertiary:#2e2e2b;
-    --color-background-info:#042c53;
-    --color-background-success:#173404;
-    --color-background-warning:#412402;
-    --color-background-danger:#501313;
-    --color-text-primary:#e8e6e0;
-    --color-text-secondary:#b4b2a9;
-    --color-text-tertiary:#888780;
-    --color-text-info:#85b7eb;
-    --color-text-success:#97c459;
-    --color-text-warning:#ef9f27;
-    --color-text-danger:#f09595;
-    --color-border-tertiary:rgba(255,255,255,0.12);
-    --color-border-secondary:rgba(255,255,255,0.22);
-    --color-border-primary:rgba(255,255,255,0.35);
-    --color-border-info:#0c447c;
+    --color-background-primary:#1c1c1a;--color-background-secondary:#262624;--color-background-tertiary:#2e2e2b;
+    --color-background-info:#042c53;--color-background-success:#173404;--color-background-warning:#412402;--color-background-danger:#501313;
+    --color-text-primary:#e8e6e0;--color-text-secondary:#b4b2a9;--color-text-tertiary:#888780;
+    --color-text-info:#85b7eb;--color-text-success:#97c459;--color-text-warning:#ef9f27;--color-text-danger:#f09595;
+    --color-border-tertiary:rgba(255,255,255,0.12);--color-border-secondary:rgba(255,255,255,0.22);--color-border-primary:rgba(255,255,255,0.35);--color-border-info:#0c447c;
   }
 }
 body{font-family:var(--font-sans);color:var(--color-text-primary);background:var(--color-background-tertiary);font-size:14px;min-height:100vh}
@@ -59,9 +32,7 @@ body{font-family:var(--font-sans);color:var(--color-text-primary);background:var
 .sync-status{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-secondary);flex-shrink:0;margin-top:2px;cursor:pointer;padding:4px 10px;border:0.5px solid var(--color-border-tertiary);border-radius:20px;background:var(--color-background-primary);transition:border-color .15s}
 .sync-status:hover{border-color:var(--color-border-secondary)}
 .sync-dot{width:7px;height:7px;border-radius:50%;background:#888;flex-shrink:0;transition:background .3s}
-.sync-dot.ok{background:#639922}
-.sync-dot.syncing{background:#EF9F27;animation:pulse .8s infinite}
-.sync-dot.error{background:#E24B4A}
+.sync-dot.ok{background:#639922}.sync-dot.syncing{background:#EF9F27;animation:pulse .8s infinite}.sync-dot.error{background:#E24B4A}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:0.5px solid var(--color-border-tertiary)}
 .tab{padding:8px 16px;cursor:pointer;border:none;background:none;font-size:13px;color:var(--color-text-secondary);border-bottom:2px solid transparent;transition:all .2s;font-family:var(--font-sans)}
@@ -79,17 +50,17 @@ body{font-family:var(--font-sans);color:var(--color-text-primary);background:var
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .stat-card{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
-.stat-num{font-size:24px;font-weight:500;margin-top:4px}
-.stat-label{font-size:12px;color:var(--color-text-secondary)}
+.stat-num{font-size:24px;font-weight:500;margin-top:4px}.stat-label{font-size:12px;color:var(--color-text-secondary)}
 .form-group{margin-bottom:12px}
-.form-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;display:block}
+.form-label{font-size:12px;color:var(--color-text-secondary);margin-bottom:4px;display:block;font-weight:500}
 input,select,textarea{width:100%;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);padding:8px 10px;font-size:13px;font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);outline:none}
 input:focus,select:focus,textarea:focus{border-color:var(--color-border-primary)}
-textarea{resize:vertical;min-height:70px}
+textarea{resize:vertical;min-height:60px}
+textarea.mono{font-family:var(--font-mono);font-size:12px}
 .btn{padding:7px 14px;border-radius:var(--border-radius-md);font-size:13px;cursor:pointer;border:0.5px solid var(--color-border-secondary);background:transparent;color:var(--color-text-primary);font-family:var(--font-sans);transition:background .15s}
 .btn:hover{background:var(--color-background-secondary)}
-.btn-primary{background:var(--color-text-primary);color:var(--color-background-primary);border-color:transparent}
-.btn-primary:hover{opacity:.85}
+.btn-primary{background:var(--color-text-primary);color:var(--color-background-primary);border-color:transparent}.btn-primary:hover{opacity:.85}
+.btn-success{background:var(--color-text-success);color:#fff;border-color:transparent}.btn-success:hover{opacity:.85}
 .btn-sm{padding:4px 10px;font-size:12px}
 .btn-danger{color:var(--color-text-danger);border-color:var(--color-border-tertiary)}
 .btn-warning{color:var(--color-text-warning);border-color:var(--color-border-tertiary)}
@@ -101,36 +72,33 @@ textarea{resize:vertical;min-height:70px}
 .log-date{flex-shrink:0;color:var(--color-text-tertiary)}
 .empty-state{text-align:center;padding:40px 20px;color:var(--color-text-secondary);font-size:13px}
 .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
-.search-bar{display:flex;gap:8px;margin-bottom:14px}
-.search-bar input{flex:1}
+.search-bar{display:flex;gap:8px;margin-bottom:14px}.search-bar input{flex:1}
 .filter-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
 .filter-chip{padding:4px 10px;border-radius:12px;font-size:12px;cursor:pointer;border:0.5px solid var(--color-border-tertiary);background:transparent;color:var(--color-text-secondary);transition:all .15s;font-family:var(--font-sans)}
 .filter-chip.active{background:var(--color-background-info);color:var(--color-text-info);border-color:var(--color-border-info)}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:100}
-.modal{background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:20px;width:min(560px,92vw);max-height:88vh;overflow-y:auto}
+.modal{background:var(--color-background-primary);border-radius:var(--border-radius-lg);padding:20px;width:min(600px,92vw);max-height:92vh;overflow-y:auto}
 .modal-title{font-size:16px;font-weight:500;margin-bottom:4px}
 .modal-subtitle{font-size:12px;color:var(--color-text-secondary);margin-bottom:16px}
 .back-btn{cursor:pointer;font-size:13px;color:var(--color-text-secondary);margin-bottom:12px;display:inline-flex;align-items:center;gap:4px;background:none;border:none;font-family:var(--font-sans)}
 .back-btn:hover{color:var(--color-text-primary)}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--color-text-primary);color:var(--color-background-primary);padding:8px 18px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:200;white-space:nowrap}
 .toast.show{opacity:1}
-.culture-row{display:grid;grid-template-columns:120px 1fr 1fr auto;gap:6px;align-items:center;margin-bottom:8px}
+.culture-row{display:grid;grid-template-columns:110px 1fr 1fr auto;gap:6px;align-items:start;margin-bottom:10px}
 .culture-row input,.culture-row select{margin:0}
-.cx-item{padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px;display:flex;gap:8px;align-items:baseline}
-.cx-date{font-size:11px;color:var(--color-text-tertiary);flex-shrink:0;min-width:48px}
+.cx-item{padding:6px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:13px}
+.cx-header{display:flex;gap:8px;align-items:baseline;margin-bottom:2px}
+.cx-date{font-size:11px;color:var(--color-text-tertiary);flex-shrink:0}
 .cx-specimen{color:var(--color-text-secondary);font-size:12px}
 .cx-org{font-weight:500}
+.cx-sens{font-size:11px;color:var(--color-text-secondary);white-space:pre-wrap;font-family:var(--font-mono);margin-top:4px;padding:6px 8px;background:var(--color-background-secondary);border-radius:var(--border-radius-md)}
 .add-cx-btn{font-size:12px;color:var(--color-text-info);cursor:pointer;background:none;border:none;font-family:var(--font-sans);padding:0;margin-top:6px}
 .add-cx-btn:hover{text-decoration:underline}
 .section-label{font-size:12px;font-weight:500;color:var(--color-text-secondary);margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
-/* Draft banner */
-.draft-banner{background:var(--color-background-warning);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.draft-banner-info{flex:1}
-.draft-banner-title{font-size:13px;color:var(--color-text-warning);font-weight:500}
-.draft-banner-sub{font-size:12px;color:var(--color-text-warning);opacity:.75;margin-top:2px}
-/* Draft list item */
 .draft-card{border:1.5px dashed var(--color-border-secondary);background:var(--color-background-warning);cursor:pointer;transition:border-color .15s}
 .draft-card:hover{border-color:var(--color-text-warning)}
+.note-preview{font-family:var(--font-mono);font-size:12px;line-height:1.7;white-space:pre-wrap;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:14px;max-height:60vh;overflow-y:auto}
+.field-divider{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:16px 0 12px}
 </style>
 </head>
 <body>
@@ -145,35 +113,20 @@ textarea{resize:vertical;min-height:70px}
       <span id="sync-label">連線中...</span>
     </div>
   </div>
-
   <div class="tabs">
     <button class="tab active" onclick="showTab('dashboard')">總覽</button>
     <button class="tab" onclick="showTab('cases')">照會追蹤</button>
     <button class="tab" onclick="showTab('knowledge')">學習日誌</button>
   </div>
-
   <div id="tab-dashboard" class="panel active">
     <div class="grid3" style="margin-bottom:16px" id="stats-grid"></div>
-    <div class="card">
-      <div style="font-size:13px;font-weight:500;margin-bottom:12px">近期照會</div>
-      <div id="recent-cases"></div>
-    </div>
-    <div class="card">
-      <div style="font-size:13px;font-weight:500;margin-bottom:12px">常見菌種分佈</div>
-      <div id="bug-stats"></div>
-    </div>
+    <div class="card"><div style="font-size:13px;font-weight:500;margin-bottom:12px">近期照會</div><div id="recent-cases"></div></div>
+    <div class="card"><div style="font-size:13px;font-weight:500;margin-bottom:12px">常見菌種分佈</div><div id="bug-stats"></div></div>
   </div>
-
   <div id="tab-cases" class="panel">
     <div id="case-list-view">
-      <div class="top-bar">
-        <span style="font-size:15px;font-weight:500">照會清單</span>
-        <button class="btn btn-primary" onclick="openAddCase()">+ 新增照會</button>
-      </div>
-      <div class="search-bar">
-        <input type="text" placeholder="搜尋病歷號、診斷、床號..." id="search-input" oninput="renderCaseList()">
-        <select id="filter-ward" onchange="renderCaseList()" style="width:auto"><option value="">全部病房</option></select>
-      </div>
+      <div class="top-bar"><span style="font-size:15px;font-weight:500">照會清單</span><button class="btn btn-primary" onclick="openAddCase()">+ 新增照會</button></div>
+      <div class="search-bar"><input type="text" placeholder="搜尋病歷號、診斷、床號..." id="search-input" oninput="renderCaseList()"><select id="filter-ward" onchange="renderCaseList()" style="width:auto"><option value="">全部病房</option></select></div>
       <div class="filter-row">
         <button class="filter-chip active" onclick="setFilter(this,'')">全部</button>
         <button class="filter-chip" onclick="setFilter(this,'active')">進行中</button>
@@ -185,43 +138,44 @@ textarea{resize:vertical;min-height:70px}
     </div>
     <div id="case-detail-view" style="display:none"></div>
   </div>
-
   <div id="tab-knowledge" class="panel">
-    <div class="top-bar">
-      <span style="font-size:15px;font-weight:500">學習日誌</span>
-      <button class="btn btn-primary" onclick="openAddNote()">+ 新增筆記</button>
-    </div>
+    <div class="top-bar"><span style="font-size:15px;font-weight:500">學習日誌</span><button class="btn btn-primary" onclick="openAddNote()">+ 新增筆記</button></div>
     <div class="filter-row" id="note-tags"></div>
     <div id="note-list"></div>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
 
-<!-- ADD / EDIT DRAFT CASE MODAL -->
+<!-- ADD/EDIT DRAFT CASE MODAL -->
 <div id="modal-case" style="display:none"><div class="modal-bg" onclick="if(event.target===this)closeModal('modal-case')"><div class="modal">
   <div class="modal-title" id="modal-case-title">新增照會</div>
-  <div class="modal-subtitle" id="modal-case-sub">填完可暫存草稿，之後再繼續編輯</div>
+  <div class="modal-subtitle">填完可暫存草稿，之後再繼續編輯</div>
   <div class="grid3">
     <div class="form-group"><label class="form-label">病歷號</label><input id="c-mrn" placeholder="MR12345"></div>
     <div class="form-group"><label class="form-label">病房</label><input id="c-ward" placeholder="8A 外科"></div>
     <div class="form-group"><label class="form-label">床號</label><input id="c-bed" placeholder="8A-12"></div>
   </div>
-  <div class="form-group"><label class="form-label">主要診斷 / 問題</label><input id="c-dx" placeholder="e.g. 術後發燒 r/o BSI"></div>
+  <div class="form-group"><label class="form-label">主要診斷 / 問題</label><input id="c-dx" placeholder="e.g. Left jaw SSTI, MRSA"></div>
   <div class="grid2">
-    <div class="form-group"><label class="form-label">優先程度</label>
-      <select id="c-priority"><option value="high">高 — 緊急</option><option value="mid" selected>中 — 一般</option><option value="low">低 — 例行</option></select>
-    </div>
-    <div class="form-group"><label class="form-label">狀態</label>
-      <select id="c-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select>
-    </div>
+    <div class="form-group"><label class="form-label">優先程度</label><select id="c-priority"><option value="high">高 — 緊急</option><option value="mid" selected>中 — 一般</option><option value="low">低 — 例行</option></select></div>
+    <div class="form-group"><label class="form-label">狀態</label><select id="c-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select></div>
   </div>
-  <div class="form-group"><label class="form-label">初步評估</label><textarea id="c-assessment" placeholder="病人基本資料、感染部位、疑似病原..."></textarea></div>
-  <div class="form-group"><label class="form-label">建議處置</label><textarea id="c-plan" placeholder="抗生素選擇、追蹤項目、回診時間..."></textarea></div>
+  <hr class="field-divider">
+  <div class="form-group"><label class="form-label">Brief Summary</label><textarea id="c-history" style="min-height:100px" placeholder="This patient is a XX-year-old male/female who has history of..."></textarea></div>
+  <div class="form-group"><label class="form-label">Patient's Condition</label><textarea id="c-condition" style="min-height:60px" placeholder="T(), O(), C()&#10;route: &#10;PE: "></textarea></div>
+  <div class="form-group"><label class="form-label">Operation / Intervention</label><input id="c-operation" placeholder="e.g. Recently nil / ERCP on 8/18"></div>
+  <div class="form-group"><label class="form-label">Catheter</label><input id="c-catheter" placeholder="e.g. CVC (R subclavian, 8/10), Foley catheter"></div>
+  <div class="form-group"><label class="form-label">Lab</label><textarea id="c-lab" style="min-height:70px" placeholder="WBC&#10;(2025/08/18，7.91)&#10;CRP&#10;(2025/08/18，6.44)"></textarea></div>
+  <div class="form-group"><label class="form-label">Image</label><textarea id="c-image" style="min-height:60px" placeholder="2025/08/18 CXR: ...&#10;2025/08/18 CT of oral cavity: ..."></textarea></div>
   <div class="form-group">
-    <div class="section-label"><span>培養送檢</span><button class="add-cx-btn" onclick="addCxRow('c-cultures')">+ 新增一筆</button></div>
+    <div class="section-label"><span>Culture 培養送檢</span><button class="add-cx-btn" onclick="addCxRow('c-cultures')">+ 新增一筆</button></div>
     <div id="c-cultures"></div>
   </div>
+  <div class="form-group"><label class="form-label">Current Antibiotics</label><textarea id="c-abx" style="min-height:50px" placeholder="Amoxicillin/Clavulanic acid 1.2g Q6H 8/18-"></textarea></div>
+  <div class="form-group"><label class="form-label">Medicine History</label><textarea id="c-medhx" style="min-height:55px" placeholder="Steroid: nil&#10;NSAID: Celecoxib 200mg Q12H&#10;Chemotherapy: ..."></textarea></div>
+  <hr class="field-divider">
+  <div class="form-group"><label class="form-label">Assessment</label><textarea id="c-assessment" placeholder="# Left jaw SSTI&#10;# ..."></textarea></div>
+  <div class="form-group"><label class="form-label">Suggestion</label><textarea id="c-plan" placeholder="1. May shift to Vancomycin...&#10;2. Please follow up trough level..."></textarea></div>
   <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px;flex-wrap:wrap">
     <button class="btn" onclick="closeModal('modal-case')">取消</button>
     <button class="btn btn-warning" onclick="saveDraft()">暫存草稿</button>
@@ -238,17 +192,23 @@ textarea{resize:vertical;min-height:70px}
     <div class="form-group"><label class="form-label">病房</label><input id="e-ward"></div>
     <div class="form-group"><label class="form-label">床號</label><input id="e-bed"></div>
   </div>
-  <div class="form-group"><label class="form-label">主要診斷 / 問題</label><input id="e-dx"></div>
+  <div class="form-group"><label class="form-label">主要診斷</label><input id="e-dx"></div>
   <div class="grid2">
-    <div class="form-group"><label class="form-label">優先程度</label>
-      <select id="e-priority"><option value="high">高 — 緊急</option><option value="mid">中 — 一般</option><option value="low">低 — 例行</option></select>
-    </div>
-    <div class="form-group"><label class="form-label">狀態</label>
-      <select id="e-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select>
-    </div>
+    <div class="form-group"><label class="form-label">優先程度</label><select id="e-priority"><option value="high">高 — 緊急</option><option value="mid">中 — 一般</option><option value="low">低 — 例行</option></select></div>
+    <div class="form-group"><label class="form-label">狀態</label><select id="e-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select></div>
   </div>
-  <div class="form-group"><label class="form-label">初步評估</label><textarea id="e-assessment" style="min-height:100px"></textarea></div>
-  <div class="form-group"><label class="form-label">建議處置</label><textarea id="e-plan" style="min-height:100px"></textarea></div>
+  <hr class="field-divider">
+  <div class="form-group"><label class="form-label">Brief Summary</label><textarea id="e-history" style="min-height:100px"></textarea></div>
+  <div class="form-group"><label class="form-label">Patient's Condition</label><textarea id="e-condition" style="min-height:60px"></textarea></div>
+  <div class="form-group"><label class="form-label">Operation / Intervention</label><input id="e-operation"></div>
+  <div class="form-group"><label class="form-label">Catheter</label><input id="e-catheter"></div>
+  <div class="form-group"><label class="form-label">Lab</label><textarea id="e-lab" style="min-height:70px"></textarea></div>
+  <div class="form-group"><label class="form-label">Image</label><textarea id="e-image" style="min-height:60px"></textarea></div>
+  <div class="form-group"><label class="form-label">Current Antibiotics</label><textarea id="e-abx" style="min-height:50px"></textarea></div>
+  <div class="form-group"><label class="form-label">Medicine History</label><textarea id="e-medhx" style="min-height:55px"></textarea></div>
+  <hr class="field-divider">
+  <div class="form-group"><label class="form-label">Assessment</label><textarea id="e-assessment" style="min-height:70px"></textarea></div>
+  <div class="form-group"><label class="form-label">Suggestion</label><textarea id="e-plan" style="min-height:70px"></textarea></div>
   <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
     <button class="btn" onclick="closeModal('modal-edit')">取消</button>
     <button class="btn btn-primary" onclick="saveEdit()">儲存修改</button>
@@ -260,16 +220,9 @@ textarea{resize:vertical;min-height:70px}
   <div class="modal-title">新增學習筆記</div>
   <div class="form-group"><label class="form-label">標題</label><input id="n-title" placeholder="e.g. MRSA菌血症治療原則"></div>
   <div class="form-group"><label class="form-label">分類標籤</label>
-    <select id="n-tag">
-      <option value="bacteria">菌種特性</option>
-      <option value="antibiotic">抗生素</option>
-      <option value="syndrome">感染症候群</option>
-      <option value="guideline">指引摘要</option>
-      <option value="pearls">Clinical Pearls</option>
-      <option value="case">Case 反思</option>
-    </select>
+    <select id="n-tag"><option value="bacteria">菌種特性</option><option value="antibiotic">抗生素</option><option value="syndrome">感染症候群</option><option value="guideline">指引摘要</option><option value="pearls">Clinical Pearls</option><option value="case">Case 反思</option></select>
   </div>
-  <div class="form-group"><label class="form-label">內容</label><textarea id="n-body" style="min-height:120px" placeholder="關鍵知識點、記憶訣竅、臨床應用..."></textarea></div>
+  <div class="form-group"><label class="form-label">內容</label><textarea id="n-body" style="min-height:120px"></textarea></div>
   <div class="form-group"><label class="form-label">連結病歷號（選填）</label><input id="n-case" placeholder="MR12345"></div>
   <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
     <button class="btn" onclick="closeModal('modal-note')">取消</button>
@@ -280,9 +233,7 @@ textarea{resize:vertical;min-height:70px}
 <!-- UPDATE MODAL -->
 <div id="modal-update" style="display:none"><div class="modal-bg" onclick="if(event.target===this)closeModal('modal-update')"><div class="modal">
   <div class="modal-title">更新進度</div>
-  <div class="form-group"><label class="form-label">狀態</label>
-    <select id="u-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select>
-  </div>
+  <div class="form-group"><label class="form-label">狀態</label><select id="u-status"><option value="active">進行中</option><option value="pending">待回覆</option><option value="resolved">已結案</option></select></div>
   <div class="form-group"><label class="form-label">更新紀錄</label><textarea id="u-note" placeholder="今日評估、調整用藥、新發現..."></textarea></div>
   <div class="form-group">
     <div class="section-label"><span>新增培養結果</span><button class="add-cx-btn" onclick="addCxRow('u-cultures')">+ 新增一筆</button></div>
@@ -294,26 +245,26 @@ textarea{resize:vertical;min-height:70px}
   </div>
 </div></div></div>
 
+<!-- CONSULT NOTE PREVIEW -->
+<div id="modal-note-preview" style="display:none"><div class="modal-bg" onclick="if(event.target===this)closeModal('modal-note-preview')"><div class="modal">
+  <div class="modal-title">照會文字預覽</div>
+  <div class="modal-subtitle">確認後複製貼到照會系統</div>
+  <div class="note-preview" id="note-preview-content"></div>
+  <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px">
+    <button class="btn" onclick="closeModal('modal-note-preview')">關閉</button>
+    <button class="btn btn-success" id="copy-btn" onclick="copyNote()">複製全文</button>
+  </div>
+</div></div></div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
 import { getFirestore, collection, doc, setDoc, deleteDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBkm3nZnTmDWHjOAou32GECPXYHeJDnsQs",
-  authDomain: "infection-tracker-9349c.firebaseapp.com",
-  projectId: "infection-tracker-9349c",
-  storageBucket: "infection-tracker-9349c.firebasestorage.app",
-  messagingSenderId: "479067065932",
-  appId: "1:479067065932:web:ebc806d092640596542ee9"
-};
+const firebaseConfig={apiKey:"AIzaSyBkm3nZnTmDWHjOAou32GECPXYHeJDnsQs",authDomain:"infection-tracker-9349c.firebaseapp.com",projectId:"infection-tracker-9349c",storageBucket:"infection-tracker-9349c.firebasestorage.app",messagingSenderId:"479067065932",appId:"1:479067065932:web:ebc806d092640596542ee9"};
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-let cases=[], notes=[], activeFilter='', currentCaseId=null, noteTagFilter='';
-// editingDraftId: when editing an existing draft from the list
-let editingDraftId=null;
-
+let cases=[],notes=[],activeFilter='',currentCaseId=null,noteTagFilter='',editingDraftId=null;
 const tagLabels={bacteria:'菌種特性',antibiotic:'抗生素',syndrome:'感染症候群',guideline:'指引摘要',pearls:'Clinical Pearls',case:'Case 反思'};
 const statusLabel={active:'進行中',pending:'待回覆',resolved:'已結案',draft:'草稿'};
 const priorityLabel={high:'高',mid:'中',low:'低'};
@@ -323,20 +274,12 @@ function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2
 function fmt(ts){if(!ts)return'';const d=new Date(+ts);return(d.getMonth()+1)+'/'+(d.getDate())+' '+(d.getHours()+'').padStart(2,'0')+':'+(d.getMinutes()+'').padStart(2,'0')}
 function fmtDate(ts){if(!ts)return'';const d=new Date(+ts);return(d.getMonth()+1)+'/'+d.getDate()}
 function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1+'').padStart(2,'0')+'-'+(d.getDate()+'').padStart(2,'0')}
-
-function setSyncStatus(state,label){
-  document.getElementById('sync-dot').className='sync-dot'+(state?' '+state:'');
-  document.getElementById('sync-label').textContent=label;
-}
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2400);
-}
+function setSyncStatus(s,l){document.getElementById('sync-dot').className='sync-dot'+(s?' '+s:'');document.getElementById('sync-label').textContent=l}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._timer);t._timer=setTimeout(()=>t.classList.remove('show'),2400)}
 
 // ---- CULTURE ROWS ----
-window.addCxRow=function(containerId){
-  const container=document.getElementById(containerId);
+window.addCxRow=function(cid){
+  const container=document.getElementById(cid);
   const rowId='cx-'+uid();
   const div=document.createElement('div');
   div.className='culture-row';div.id=rowId;
@@ -344,85 +287,164 @@ window.addCxRow=function(containerId){
     <input type="date" value="${todayStr()}" style="font-size:12px;padding:6px 8px">
     <select style="font-size:12px;padding:6px 8px">${SPECIMEN_TYPES.map(s=>`<option value="${s}">${s}</option>`).join('')}</select>
     <input type="text" placeholder="菌種 (e.g. MRSA)" style="font-size:12px;padding:6px 8px">
-    <button onclick="document.getElementById('${rowId}').remove()" style="background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);font-size:20px;line-height:1;padding:0 4px">×</button>`;
+    <button onclick="document.getElementById('${rowId}').remove()" style="background:none;border:none;cursor:pointer;color:var(--color-text-tertiary);font-size:20px;line-height:1;padding:0 4px;align-self:start;margin-top:6px">×</button>
+    <div style="grid-column:1/-1;margin-top:2px">
+      <textarea class="mono" placeholder="藥敏結果（直接貼上原始文字）&#10;Vancomycin    S(1)&#10;Linezolid     S(1)" style="min-height:60px;font-size:11px;margin:0"></textarea>
+    </div>`;
   container.appendChild(div);
 }
 
-function getCxRows(containerId){
+function getCxRows(cid){
   const rows=[];
-  document.querySelectorAll('#'+containerId+' .culture-row').forEach(row=>{
-    const inputs=row.querySelectorAll('input,select');
-    const date=inputs[0].value,specimen=inputs[1].value,organism=inputs[2].value.trim();
-    if(organism||specimen)rows.push({date,specimen,organism});
+  document.querySelectorAll('#'+cid+' .culture-row').forEach(row=>{
+    const inp=row.querySelectorAll('input[type=date],select,input[type=text]');
+    const sens=row.querySelector('textarea');
+    const date=inp[0].value,specimen=inp[1].value,organism=inp[2].value.trim(),sensitivity=sens?sens.value.trim():'';
+    if(organism||specimen)rows.push({date,specimen,organism,sensitivity});
   });
   return rows;
 }
 
+function fillCxRows(cid,cultures){
+  document.getElementById(cid).innerHTML='';
+  (cultures||[]).forEach(cx=>{
+    addCxRow(cid);
+    const rows=document.querySelectorAll('#'+cid+' .culture-row');
+    const row=rows[rows.length-1];
+    const inp=row.querySelectorAll('input[type=date],select,input[type=text]');
+    const sens=row.querySelector('textarea');
+    if(cx.date)inp[0].value=cx.date;
+    if(cx.specimen)inp[1].value=cx.specimen;
+    if(cx.organism)inp[2].value=cx.organism;
+    if(cx.sensitivity&&sens)sens.value=cx.sensitivity;
+  });
+  if(!(cultures||[]).length)addCxRow(cid);
+}
+
 function renderCultureList(cultures){
   if(!cultures||!cultures.length)return'';
-  return cultures.map(cx=>`<div class="cx-item"><span class="cx-date">${cx.date||''}</span><span style="flex:1"><span class="cx-specimen">${cx.specimen||''}</span>${cx.organism?` — <span class="cx-org">${cx.organism}</span>`:''}</span></div>`).join('');
+  return cultures.map(cx=>`
+    <div class="cx-item">
+      <div class="cx-header">
+        <span class="cx-date">${cx.date||''}</span>
+        <span class="cx-specimen">${cx.specimen||''}</span>
+        ${cx.organism?`— <span class="cx-org">${cx.organism}</span>`:''}
+      </div>
+      ${cx.sensitivity?`<div class="cx-sens">${cx.sensitivity}</div>`:''}
+    </div>`).join('');
+}
+
+// ---- CONSULT NOTE GENERATOR ----
+function generateConsultNote(c){
+  const allCultures=[...(c.cultures||[])];
+  (c.updates||[]).forEach(u=>(u.cultures||[]).forEach(cx=>allCultures.push(cx)));
+
+  const cultureSection=allCultures.length
+    ?allCultures.map(cx=>{
+        let s=`${cx.date||''} ${cx.specimen||''}:`;
+        if(cx.organism)s+=`\n   Organism: ${cx.organism}`;
+        if(cx.sensitivity)s+=`\n   Susceptibility:\n${cx.sensitivity.split('\n').map(l=>'   '+l).join('\n')}`;
+        return s;
+      }).join('\n\n')
+    :'   Pending';
+
+  return `== Brief Summary ==
+${c.history||''}
+
+[Patient's condition]
+${c.condition||''}
+
+[Operation/intervention]
+${c.operation||'Recently nil'}
+
+[Catheter]
+${c.catheter||''}
+
+[Lab]
+${c.lab||''}
+
+[Image]
+${c.image||''}
+
+[Culture]
+${cultureSection}
+
+[Current Antibiotics]
+------current----------
+${c.abx||''}
+
+[Medicine history]
+${c.medhx||''}
+
+== Assessment ==
+${c.assessment||''}
+
+== Suggestion ==
+${c.plan||''}`;
+}
+
+window.openConsultNote=function(id){
+  const c=cases.find(x=>x.id===id);if(!c)return;
+  document.getElementById('note-preview-content').textContent=generateConsultNote(c);
+  document.getElementById('copy-btn').textContent='複製全文';
+  document.getElementById('copy-btn').className='btn btn-success';
+  document.getElementById('modal-note-preview').style.display='block';
+}
+
+window.copyNote=function(){
+  const text=document.getElementById('note-preview-content').textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=document.getElementById('copy-btn');
+    btn.textContent='✓ 已複製！';
+    setTimeout(()=>{btn.textContent='複製全文';},2000);
+  }).catch(()=>{
+    const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+    showToast('✓ 已複製！');
+  });
 }
 
 // ---- FIREBASE ----
 function initListeners(){
   setSyncStatus('syncing','連線中...');
-  onSnapshot(query(collection(db,'cases'),orderBy('created','desc')), snap=>{
-    cases=snap.docs.map(d=>({id:d.id,...d.data()}));
-    setSyncStatus('ok','即時同步');
-    renderAll();
-  }, err=>{setSyncStatus('error','連線失敗');console.error(err)});
-  onSnapshot(query(collection(db,'notes'),orderBy('created','desc')), snap=>{
-    notes=snap.docs.map(d=>({id:d.id,...d.data()}));
-    renderNotes();
+  onSnapshot(query(collection(db,'cases'),orderBy('created','desc')),snap=>{
+    cases=snap.docs.map(d=>({id:d.id,...d.data()}));setSyncStatus('ok','即時同步');renderAll();
+  },err=>{setSyncStatus('error','連線失敗');console.error(err)});
+  onSnapshot(query(collection(db,'notes'),orderBy('created','desc')),snap=>{
+    notes=snap.docs.map(d=>({id:d.id,...d.data()}));renderNotes();
   });
 }
-
-async function saveToFirebase(colName,id,data){
-  try{await setDoc(doc(db,colName,id),data);}
-  catch(e){showToast('⚠️ 儲存失敗：'+e.message);console.error(e);}
-}
-async function deleteFromFirebase(colName,id){
-  try{await deleteDoc(doc(db,colName,id));}
-  catch(e){showToast('⚠️ 刪除失敗：'+e.message);}
-}
-
+async function saveToFirebase(col,id,data){try{await setDoc(doc(db,col,id),data);}catch(e){showToast('⚠️ 儲存失敗：'+e.message);}}
+async function deleteFromFirebase(col,id){try{await deleteDoc(doc(db,col,id));}catch(e){showToast('⚠️ 刪除失敗：'+e.message);}}
 window.manualSync=function(){showToast('✓ Firebase 即時同步中')}
 
-// ---- READ FORM ----
 function readCaseForm(){
-  return {
+  return{
     mrn:document.getElementById('c-mrn').value.trim(),
     ward:document.getElementById('c-ward').value.trim(),
     bed:document.getElementById('c-bed').value.trim(),
     dx:document.getElementById('c-dx').value.trim(),
     priority:document.getElementById('c-priority').value,
     status:document.getElementById('c-status').value,
+    history:document.getElementById('c-history').value.trim(),
+    condition:document.getElementById('c-condition').value.trim(),
+    operation:document.getElementById('c-operation').value.trim(),
+    catheter:document.getElementById('c-catheter').value.trim(),
+    lab:document.getElementById('c-lab').value.trim(),
+    image:document.getElementById('c-image').value.trim(),
+    medhx:document.getElementById('c-medhx').value.trim(),
+    abx:document.getElementById('c-abx').value.trim(),
+    cultures:getCxRows('c-cultures'),
     assessment:document.getElementById('c-assessment').value.trim(),
     plan:document.getElementById('c-plan').value.trim(),
-    cultures:getCxRows('c-cultures'),
   };
 }
 
 function fillCaseForm(c){
-  document.getElementById('c-mrn').value=c.mrn||'';
-  document.getElementById('c-ward').value=c.ward||'';
-  document.getElementById('c-bed').value=c.bed||'';
-  document.getElementById('c-dx').value=c.dx||'';
+  const fields={mrn:'c-mrn',ward:'c-ward',bed:'c-bed',dx:'c-dx',history:'c-history',condition:'c-condition',operation:'c-operation',catheter:'c-catheter',lab:'c-lab',image:'c-image',medhx:'c-medhx',abx:'c-abx',assessment:'c-assessment',plan:'c-plan'};
+  Object.entries(fields).forEach(([k,id])=>document.getElementById(id).value=c[k]||'');
   document.getElementById('c-priority').value=c.priority||'mid';
-  document.getElementById('c-status').value=c.status==='draft'?'active':(c.status||'active');
-  document.getElementById('c-assessment').value=c.assessment||'';
-  document.getElementById('c-plan').value=c.plan||'';
-  document.getElementById('c-cultures').innerHTML='';
-  (c.cultures||[]).forEach(cx=>{
-    addCxRow('c-cultures');
-    const rows=document.querySelectorAll('#c-cultures .culture-row');
-    const row=rows[rows.length-1];
-    const inputs=row.querySelectorAll('input,select');
-    if(cx.date)inputs[0].value=cx.date;
-    if(cx.specimen)inputs[1].value=cx.specimen;
-    if(cx.organism)inputs[2].value=cx.organism;
-  });
-  if(!(c.cultures||[]).length) addCxRow('c-cultures');
+  document.getElementById('c-status').value=(c.status==='draft')?'active':(c.status||'active');
+  fillCxRows('c-cultures',c.cultures);
 }
 
 // ---- TABS ----
@@ -438,24 +460,20 @@ function renderAll(){renderDash();renderCaseList();renderWardFilter();renderNote
 window.openAddCase=function(){
   editingDraftId=null;
   document.getElementById('modal-case-title').textContent='新增照會';
-  document.getElementById('modal-case-sub').textContent='填完可暫存草稿，之後再繼續編輯';
-  ['c-mrn','c-ward','c-bed','c-dx','c-assessment','c-plan'].forEach(id=>document.getElementById(id).value='');
+  ['c-mrn','c-ward','c-bed','c-dx','c-history','c-condition','c-operation','c-catheter','c-lab','c-image','c-medhx','c-abx','c-assessment','c-plan'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('c-priority').value='mid';
   document.getElementById('c-status').value='active';
   document.getElementById('c-cultures').innerHTML='';
   addCxRow('c-cultures');
   document.getElementById('modal-case').style.display='block';
 }
-
 window.openDraftEdit=function(id){
   const c=cases.find(x=>x.id===id);if(!c)return;
   editingDraftId=id;
   document.getElementById('modal-case-title').textContent='編輯草稿';
-  document.getElementById('modal-case-sub').textContent='繼續填寫，或點「正式儲存」完成';
   fillCaseForm(c);
   document.getElementById('modal-case').style.display='block';
 }
-
 window.closeModal=function(id){document.getElementById(id).style.display='none'}
 window.openAddNote=function(){
   document.getElementById('modal-note').style.display='block';
@@ -463,60 +481,45 @@ window.openAddNote=function(){
   document.getElementById('n-tag').value='bacteria';
 }
 
-// ---- DRAFT SAVE ----
 window.saveDraft=async function(){
   const data=readCaseForm();
   if(!data.mrn&&!data.dx)return alert('請至少填寫病歷號或診斷才能暫存');
   const id=editingDraftId||uid();
-  await saveToFirebase('cases',id,{...data,status:'draft',created:Date.now(),updates:[],cultures:data.cultures});
-  closeModal('modal-case');
-  editingDraftId=null;
-  showToast('📝 草稿已暫存，可隨時繼續編輯');
+  await saveToFirebase('cases',id,{...data,status:'draft',created:Date.now(),updates:[]});
+  closeModal('modal-case');editingDraftId=null;showToast('📝 草稿已暫存');
 }
 
-// ---- FORMAL SAVE ----
 window.saveCase=async function(){
   const data=readCaseForm();
   if(!data.mrn||!data.dx)return alert('請填寫病歷號與診斷');
   const id=editingDraftId||uid();
   const existing=editingDraftId?cases.find(x=>x.id===editingDraftId):null;
-  await saveToFirebase('cases',id,{
-    ...data,
-    status:data.status,
-    created:(existing&&existing.created)||Date.now(),
-    updates:(existing&&existing.updates)||[]
-  });
-  closeModal('modal-case');
-  editingDraftId=null;
-  showToast('✓ 照會已正式儲存');
+  await saveToFirebase('cases',id,{...data,created:(existing&&existing.created)||Date.now(),updates:(existing&&existing.updates)||[]});
+  closeModal('modal-case');editingDraftId=null;showToast('✓ 照會已儲存');
 }
 
 window.saveNote=async function(){
-  const title=document.getElementById('n-title').value.trim();
-  const body=document.getElementById('n-body').value.trim();
+  const title=document.getElementById('n-title').value.trim(),body=document.getElementById('n-body').value.trim();
   if(!title||!body)return alert('請填寫標題與內容');
   await saveToFirebase('notes',uid(),{title,tag:document.getElementById('n-tag').value,body,caseRef:document.getElementById('n-case').value.trim(),created:Date.now()});
-  closeModal('modal-note');
-  showToast('✓ 筆記已儲存');
+  closeModal('modal-note');showToast('✓ 筆記已儲存');
 }
 
 // ---- DASHBOARD ----
 function renderDash(){
-  const active=cases.filter(c=>c.status==='active').length;
-  const pending=cases.filter(c=>c.status==='pending').length;
-  const resolved=cases.filter(c=>c.status==='resolved').length;
-  const drafts=cases.filter(c=>c.status==='draft').length;
+  const active=cases.filter(c=>c.status==='active').length,pending=cases.filter(c=>c.status==='pending').length,resolved=cases.filter(c=>c.status==='resolved').length,drafts=cases.filter(c=>c.status==='draft').length;
   document.getElementById('stats-grid').innerHTML=`
     <div class="stat-card"><div class="stat-label">進行中</div><div class="stat-num" style="color:var(--color-text-info)">${active}</div></div>
     <div class="stat-card"><div class="stat-label">待回覆</div><div class="stat-num" style="color:var(--color-text-warning)">${pending}</div></div>
     <div class="stat-card"><div class="stat-label">已結案</div><div class="stat-num" style="color:var(--color-text-success)">${resolved}</div></div>`;
-  document.getElementById('recent-cases').innerHTML=(drafts?`<div style="font-size:12px;color:var(--color-text-warning);margin-bottom:8px;padding:6px 10px;background:var(--color-background-warning);border-radius:var(--border-radius-md)">📝 你有 ${drafts} 份草稿尚未完成</div>`:'')+
+  document.getElementById('recent-cases').innerHTML=
+    (drafts?`<div style="font-size:12px;color:var(--color-text-warning);margin-bottom:8px;padding:6px 10px;background:var(--color-background-warning);border-radius:var(--border-radius-md)">📝 你有 ${drafts} 份草稿尚未完成</div>`:'')+
     cases.filter(c=>c.status!=='draft').slice(0,3).map(c=>`
-    <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)">
-      <span class="dot dot-${c.priority}"></span>
-      <span style="flex:1;font-size:13px">${c.mrn}${c.bed?' · '+c.bed:''} — ${c.dx}</span>
-      <span class="badge badge-${c.status}">${statusLabel[c.status]}</span>
-    </div>`).join('')||'<div style="font-size:13px;color:var(--color-text-secondary)">尚無照會</div>';
+      <div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:0.5px solid var(--color-border-tertiary)">
+        <span class="dot dot-${c.priority}"></span>
+        <span style="flex:1;font-size:13px">${c.mrn}${c.bed?' · '+c.bed:''} — ${c.dx}</span>
+        <span class="badge badge-${c.status}">${statusLabel[c.status]}</span>
+      </div>`).join('')||'<div style="font-size:13px;color:var(--color-text-secondary)">尚無照會</div>';
   const counts={};
   cases.forEach(c=>{
     (c.cultures||[]).forEach(cx=>{if(cx.organism&&cx.organism.length>1)counts[cx.organism]=(counts[cx.organism]||0)+1});
@@ -540,9 +543,9 @@ function renderCaseList(){
   const q=(document.getElementById('search-input')||{value:''}).value.toLowerCase();
   const ward=(document.getElementById('filter-ward')||{value:''}).value;
   const filtered=cases.filter(c=>{
-    if(activeFilter==='draft'){return c.status==='draft';}
+    if(activeFilter==='draft')return c.status==='draft';
     if(activeFilter&&c.status!==activeFilter)return false;
-    if(!activeFilter&&c.status==='draft')return false; // hide drafts from "all" unless filter selected
+    if(!activeFilter&&c.status==='draft')return false;
     if(ward&&c.ward!==ward)return false;
     if(q&&!(c.mrn.toLowerCase().includes(q)||c.dx.toLowerCase().includes(q)||(c.ward||'').toLowerCase().includes(q)||(c.bed||'').toLowerCase().includes(q)))return false;
     return true;
@@ -585,12 +588,20 @@ window.showCaseDetail=function(id){
       </div>
       <div style="font-size:14px;margin-top:8px">${c.dx}</div>
       <div style="font-size:12px;color:var(--color-text-tertiary);margin-top:4px">建立：${fmt(c.created)}　優先度：${priorityLabel[c.priority]}</div>
-      ${c.assessment?`<div class="detail-section"><h4>初步評估</h4><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${c.assessment}</div></div>`:''}
-      ${c.plan?`<div class="detail-section"><h4>建議處置</h4><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${c.plan}</div></div>`:''}
+      ${c.history?`<div class="detail-section"><h4>Brief Summary</h4><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${c.history}</div></div>`:''}
+      ${c.condition?`<div class="detail-section"><h4>Patient's Condition</h4><div style="font-size:13px;white-space:pre-wrap">${c.condition}</div></div>`:''}
+      ${c.operation?`<div class="detail-section"><h4>Operation / Intervention</h4><div style="font-size:13px">${c.operation}</div></div>`:''}
+      ${c.catheter?`<div class="detail-section"><h4>Catheter</h4><div style="font-size:13px">${c.catheter}</div></div>`:''}
+      ${c.lab?`<div class="detail-section"><h4>Lab</h4><div style="font-size:12px;font-family:var(--font-mono);white-space:pre-wrap;color:var(--color-text-secondary)">${c.lab}</div></div>`:''}
+      ${c.image?`<div class="detail-section"><h4>Image</h4><div style="font-size:13px;white-space:pre-wrap">${c.image}</div></div>`:''}
+      ${c.abx?`<div class="detail-section"><h4>Current Antibiotics</h4><div style="font-size:13px;white-space:pre-wrap">${c.abx}</div></div>`:''}
+      ${c.medhx?`<div class="detail-section"><h4>Medicine History</h4><div style="font-size:13px;white-space:pre-wrap">${c.medhx}</div></div>`:''}
       <div class="detail-section">
-        <h4>培養結果 (${allCultures.length})</h4>
-        ${allCultures.length?`<div>${renderCultureList(allCultures)}</div>`:'<div style="font-size:12px;color:var(--color-text-secondary)">尚無培養資料</div>'}
+        <h4>Culture (${allCultures.length})</h4>
+        ${allCultures.length?renderCultureList(allCultures):'<div style="font-size:12px;color:var(--color-text-secondary)">尚無培養資料</div>'}
       </div>
+      ${c.assessment?`<div class="detail-section"><h4>Assessment</h4><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${c.assessment}</div></div>`:''}
+      ${c.plan?`<div class="detail-section"><h4>Suggestion</h4><div style="font-size:13px;line-height:1.7;white-space:pre-wrap">${c.plan}</div></div>`:''}
       <div class="detail-section">
         <h4>更新紀錄 (${(c.updates||[]).length})</h4>
         ${(c.updates||[]).length?(c.updates||[]).map(u=>`<div class="log-item"><span class="log-date">${fmtDate(u.ts)}</span><span style="flex:1">${u.note}${u.status?' ['+statusLabel[u.status]+']':''}</span></div>`).join(''):'<div style="font-size:12px;color:var(--color-text-secondary)">尚無更新</div>'}
@@ -598,17 +609,14 @@ window.showCaseDetail=function(id){
       <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
         <button class="btn btn-primary btn-sm" onclick="openUpdate()">更新進度</button>
         <button class="btn btn-sm" onclick="openEdit('${c.id}')">✏️ 編輯案件</button>
+        <button class="btn btn-success btn-sm" onclick="openConsultNote('${c.id}')">📋 生成照會文字</button>
         <button class="btn btn-sm" onclick="addNoteFromCase('${c.mrn}')">加入學習筆記</button>
         <button class="btn btn-sm btn-danger" onclick="deleteCase('${c.id}')">刪除</button>
       </div>
     </div>`;
 }
 
-window.backToList=function(){
-  document.getElementById('case-list-view').style.display='block';
-  document.getElementById('case-detail-view').style.display='none';
-  currentCaseId=null;
-}
+window.backToList=function(){document.getElementById('case-list-view').style.display='block';document.getElementById('case-detail-view').style.display='none';currentCaseId=null;}
 
 window.openUpdate=function(){
   document.getElementById('modal-update').style.display='block';
@@ -623,43 +631,38 @@ window.saveUpdate=async function(){
   const note=document.getElementById('u-note').value.trim();if(!note)return alert('請填寫更新內容');
   const cultures=getCxRows('u-cultures');
   const newStatus=document.getElementById('u-status').value;
-  const updatedCase={...c,status:newStatus,cultures:[...(c.cultures||[]),...cultures],updates:[...(c.updates||[]),{ts:Date.now(),note,cultures,status:newStatus}]};
-  delete updatedCase.id;
+  const updated={...c,status:newStatus,cultures:[...(c.cultures||[]),...cultures],updates:[...(c.updates||[]),{ts:Date.now(),note,cultures,status:newStatus}]};
+  delete updated.id;
   closeModal('modal-update');
-  await saveToFirebase('cases',currentCaseId,updatedCase);
+  await saveToFirebase('cases',currentCaseId,updated);
   showToast('✓ 進度已更新');
 }
 
 window.openEdit=function(id){
   const c=cases.find(x=>x.id===id);if(!c)return;
-  document.getElementById('e-mrn').value=c.mrn||'';
-  document.getElementById('e-ward').value=c.ward||'';
-  document.getElementById('e-bed').value=c.bed||'';
-  document.getElementById('e-dx').value=c.dx||'';
+  const fields={mrn:'e-mrn',ward:'e-ward',bed:'e-bed',dx:'e-dx',history:'e-history',condition:'e-condition',operation:'e-operation',catheter:'e-catheter',lab:'e-lab',image:'e-image',medhx:'e-medhx',abx:'e-abx',assessment:'e-assessment',plan:'e-plan'};
+  Object.entries(fields).forEach(([k,eid])=>document.getElementById(eid).value=c[k]||'');
   document.getElementById('e-priority').value=c.priority||'mid';
   document.getElementById('e-status').value=c.status||'active';
-  document.getElementById('e-plan').value=c.plan||'';
-  document.getElementById('e-assessment').value=c.assessment||'';
   document.getElementById('modal-edit').style.display='block';
 }
 
 window.saveEdit=async function(){
   const c=cases.find(x=>x.id===currentCaseId);if(!c)return;
-  const mrn=document.getElementById('e-mrn').value.trim();
-  const dx=document.getElementById('e-dx').value.trim();
+  const mrn=document.getElementById('e-mrn').value.trim(),dx=document.getElementById('e-dx').value.trim();
   if(!mrn||!dx)return alert('請填寫病歷號與診斷');
-  const updatedCase={...c,mrn,ward:document.getElementById('e-ward').value.trim(),bed:document.getElementById('e-bed').value.trim(),dx,priority:document.getElementById('e-priority').value,status:document.getElementById('e-status').value,assessment:document.getElementById('e-assessment').value.trim(),plan:document.getElementById('e-plan').value.trim()};
-  delete updatedCase.id;
+  const fields={mrn,ward:'e-ward',bed:'e-bed',dx,history:'e-history',condition:'e-condition',operation:'e-operation',catheter:'e-catheter',lab:'e-lab',image:'e-image',medhx:'e-medhx',abx:'e-abx',assessment:'e-assessment',plan:'e-plan'};
+  const updated={...c,priority:document.getElementById('e-priority').value,status:document.getElementById('e-status').value};
+  Object.entries(fields).forEach(([k,eid])=>{if(typeof eid==='string'&&eid.startsWith('e-'))updated[k]=document.getElementById(eid).value.trim();else updated[k]=eid;});
+  delete updated.id;
   closeModal('modal-edit');
-  await saveToFirebase('cases',currentCaseId,updatedCase);
+  await saveToFirebase('cases',currentCaseId,updated);
   showToast('✓ 案件已更新');
 }
 
 window.deleteCase=async function(id){
   if(!confirm('確定刪除此照會？'))return;
-  backToList();
-  await deleteFromFirebase('cases',id);
-  showToast('已刪除');
+  backToList();await deleteFromFirebase('cases',id);showToast('已刪除');
 }
 
 // ---- NOTES ----
@@ -682,13 +685,7 @@ function renderNotes(){
 }
 window.setNoteTag=function(t){noteTagFilter=t;renderNotes()}
 window.deleteNote=async function(id){if(!confirm('確定刪除？'))return;await deleteFromFirebase('notes',id);}
-window.addNoteFromCase=function(mrn){
-  document.getElementById('n-case').value=mrn;
-  document.getElementById('n-tag').value='case';
-  document.getElementById('n-title').value='';
-  document.getElementById('n-body').value='';
-  document.getElementById('modal-note').style.display='block';
-}
+window.addNoteFromCase=function(mrn){document.getElementById('n-case').value=mrn;document.getElementById('n-tag').value='case';document.getElementById('n-title').value='';document.getElementById('n-body').value='';document.getElementById('modal-note').style.display='block';}
 
 initListeners();
 </script>
